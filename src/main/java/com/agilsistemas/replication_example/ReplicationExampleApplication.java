@@ -13,6 +13,12 @@ import com.agilsistemas.replication_example.view.TelaPrincipal;
 @SpringBootApplication
 public class ReplicationExampleApplication {
 
+	/**
+	 * Para usar o Swing com o Spring, declaramos o appcontext para injetar as
+	 * dependencias na tela principal.
+	 * 
+	 * @param args Argumentos da linha de comando (irrelevante para essa app)
+	 */
 	public static void main(String[] args) {
 		setLook();
 		ApplicationContext ctx = new SpringApplicationBuilder(ReplicationExampleApplication.class)

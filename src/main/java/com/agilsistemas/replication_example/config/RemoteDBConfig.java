@@ -14,14 +14,25 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+/**
+ * Essa config se aplica para um bd remoto, que nem sempre pode estar
+ * disponível. Por isso, definimos hibernate.hbm2ddl.auto como none, para que a
+ * app ainda suba, mesmo sem a conexão.
+ * 
+ * @author YuriFernandes150
+ */
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = "com.agilsistemas.replication_example.repository.remote",
-entityManagerFactoryRef = "remoteDbEntityManager", transactionManagerRef = "remoteDbTransactionManager")
+@EnableJpaRepositories(basePackages = "com.agilsistemas.replication_example.repository.remote", entityManagerFactoryRef = "remoteDbEntityManager", transactionManagerRef = "remoteDbTransactionManager")
 public class RemoteDBConfig {
 
+    /*
+     * As configs aqui são parecidas com as da classe do banco local, mas note que
+     * não utilizamos @Primary em nenhum dos Beans.
+     * 
+     */
     @Bean
-    public LocalContainerEntityManagerFactoryBean remoteDbEntityManager(){
+    public LocalContainerEntityManagerFactoryBean remoteDbEntityManager() {
         final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
 
         em.setDataSource(remoteDataSource());
@@ -39,7 +50,7 @@ public class RemoteDBConfig {
     }
 
     @Bean
-    public DataSource remoteDataSource(){
+    public DataSource remoteDataSource() {
         final DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
         dataSource.setDriverClassName("org.postgresql.Driver");
@@ -51,7 +62,7 @@ public class RemoteDBConfig {
     }
 
     @Bean
-    public PlatformTransactionManager remoteDbTransactionManager(){
+    public PlatformTransactionManager remoteDbTransactionManager() {
         final JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(remoteDbEntityManager().getObject());
         return transactionManager;

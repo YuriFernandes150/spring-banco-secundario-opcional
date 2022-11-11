@@ -16,6 +16,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
+/**
+ * Essa tabela de itens está presente em ambos os bancos, mas não precisamos mapear dois objetos.
+ * @author YuriFernandes150
+ */
 @Entity
 @Table(name = "tbitens")
 @Getter

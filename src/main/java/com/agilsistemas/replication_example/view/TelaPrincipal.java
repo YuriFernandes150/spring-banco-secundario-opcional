@@ -22,9 +22,17 @@ import net.bytebuddy.utility.RandomString;
 
 import java.awt.*;
 
+/**
+ * Essa tela swing serve somente para facilitar algumas operações de teste.
+ * 
+ * @author YuriFernandes150
+ */
 @Component
 public class TelaPrincipal extends JFrame {
 
+    /*
+     * Especificamos ambos os repos aqui.
+     */
     private final LocalItemRepository localItemRepository;
     private final RemoteItemRepository remoteItemRepository;
 
@@ -39,7 +47,7 @@ public class TelaPrincipal extends JFrame {
     JPanel painelListas = new JPanel(new BorderLayout());
 
     JSpinner qtdItem = new JSpinner();
-    
+
     JButton btOk = new JButton("OK");
     JButton btRefresh = new JButton("Atualizar");
 
@@ -48,6 +56,9 @@ public class TelaPrincipal extends JFrame {
 
     JScrollPane scrollListas = new JScrollPane(painelListas);
 
+    /**
+     * Configuramos os componentes.
+     */
     private void montaTela() {
 
         this.setSize(new Dimension(500, 500));
@@ -81,6 +92,9 @@ public class TelaPrincipal extends JFrame {
 
     }
 
+    /**
+     * Definimos as ações da tela.
+     */
     private void acoesTela() {
         btOk.addActionListener(evt -> {
 
@@ -95,11 +109,17 @@ public class TelaPrincipal extends JFrame {
 
         });
 
-        btRefresh.addActionListener(evt ->{
-           preencherListas(); 
+        btRefresh.addActionListener(evt -> {
+            preencherListas();
         });
     }
 
+    /**
+     * Nesse método buscamos os dados em ambos os bancos, com uma contingência no
+     * catch, quando o banco remoto estiver offline. Levando em consideração isso,
+     * devemos azer contingências em todas as operações do banco remoto, para caso a
+     * conexão não for obtida com sucesso.
+     */
     private void preencherListas() {
 
         DefaultListModel<Item> modelLocal = ((DefaultListModel<Item>) listaItensBancoLocal.getModel());

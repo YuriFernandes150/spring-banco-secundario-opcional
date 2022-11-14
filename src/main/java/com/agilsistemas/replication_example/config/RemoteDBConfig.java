@@ -29,6 +29,8 @@ public class RemoteDBConfig {
     /*
      * As configs aqui são parecidas com as da classe do banco local, mas note que
      * não utilizamos @Primary em nenhum dos Beans.
+     * Note também, que o modo de DDL do hibernate para esse banco está desativado,
+     * pois a logical replication do postgres não suporta comandos DDL.
      * 
      */
     @Bean
